@@ -21,7 +21,6 @@ import com.chh.music.fragment.DjradioFragment;
 import com.chh.music.fragment.PlayListFragment;
 import com.chh.music.fragment.TopListFragment;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -29,8 +28,6 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private ImageView mRefreshImageView;
-    private View mExploreView;
     private TabLayout mTabLayout;
     private TabPageAdapter mTabPageAdapter;
     private ViewPager mViewPage;
