@@ -5,4 +5,10 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <string-array name="tabs">
+        <item>歌单</item>
+        <item>主播电台</item>
+        <item>流行榜</item>
+    </string-array>
 </resources>
