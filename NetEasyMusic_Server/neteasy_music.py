@@ -13,4 +13,4 @@ def top_playlists():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="10.60.216.82",port=8080, debug=True)
