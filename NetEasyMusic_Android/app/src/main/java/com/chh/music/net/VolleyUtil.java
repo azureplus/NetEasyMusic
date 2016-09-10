@@ -12,7 +12,7 @@ import java.io.File;
 
 public class VolleyUtil {
     public static ImageLoader sImageLoader = new ImageLoader(Volley.newRequestQueue(
-            MusicApplication.getInstance()), new BitmapLruCache());;
+            MusicApplication.getInstance()), new BitmapLruCache());
 
 
     public static void loadImage(final ImageView view, String url) {
@@ -21,7 +21,7 @@ public class VolleyUtil {
          +         * 由于之前版本出现多进程访问volley，导致部分文件被写坏而发生崩溃，现在先清理一次缓存
          +         *
          * */
-        doCleanAllCache();
+//        doCleanAllCache();
 
         sImageLoader.get(url, new ImageLoader.ImageListener() {
             @Override

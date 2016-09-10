@@ -9,6 +9,10 @@
     <color name="tab_text_select">#E13341</color>
     <color name="tab_text_normal">#000000</color>
 
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="main_backgroud">#F5F6F7</color>
+
     <color name="tab_text_white">#ffffff</color>
 
     <drawable name="white_transparent">#90ffffff</drawable>

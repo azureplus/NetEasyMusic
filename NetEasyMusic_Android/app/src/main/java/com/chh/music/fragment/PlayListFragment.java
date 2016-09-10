@@ -16,6 +16,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.chh.music.MusicApplication;
 import com.chh.music.R;
 import com.chh.music.adapter.PlayListAdapter;
+import com.chh.music.constant.API;
 import com.chh.music.model.PlayListModel;
 import com.chh.music.utils.CHHLog;
 
@@ -60,12 +61,18 @@ public class PlayListFragment extends BaseFragment {
             public void getItemOffsets(
                     Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
                 int margin = getContext().getResources().getDimensionPixelSize(R.dimen.play_list_item_margin);
-                outRect.set(margin, margin, margin, margin);
+                int position = parent.getChildAdapterPosition(view);
+                if(position % 2 == 0) {
+                    outRect.set(margin, margin, margin/2, 0);
+                }else{
+                    outRect.set(1 * margin/2, margin, margin, 0);
+                }
+
             }
         });
         mPlayListRecyclerView.setHasFixedSize(true);
         mPlayListRecyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), 2));
-        mPlayListAdapter = new PlayListAdapter(mPlayListModels);
+        mPlayListAdapter = new PlayListAdapter(getContext(), mPlayListModels);
         mPlayListRecyclerView.setAdapter(mPlayListAdapter);
         return view;
     }
@@ -79,7 +86,7 @@ public class PlayListFragment extends BaseFragment {
 
 
     private void requestServer(){
-        String url = "http://10.60.216.82:8080/playlist";
+        String url = "http://"+ API.HOST +"/playlist";
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>(){
 
             @Override
@@ -92,8 +99,8 @@ public class PlayListFragment extends BaseFragment {
                         PlayListModel model = new PlayListModel(playlists.optJSONObject(i));
                         mPlayListModels.add(model);
                     }
+                    mPlayListAdapter.notifyDataSetChanged();
                 }
-                mPlayListAdapter.notifyDataSetChanged();
 
             }
         }, new Response.ErrorListener(){
