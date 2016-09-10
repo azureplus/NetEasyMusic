@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -30,7 +31,7 @@ import java.util.List;
 /**
  * Created by chenhao on 16/9/7.
  */
-public class PlayListFragment extends BaseFragment {
+public class PlayListFragment extends BaseFragment implements PlayListAdapter.OnItemClickListener {
 
     private List<PlayListModel> mPlayListModels = new ArrayList<PlayListModel>();
     private RecyclerView mPlayListRecyclerView;
@@ -74,6 +75,7 @@ public class PlayListFragment extends BaseFragment {
         mPlayListRecyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), 2));
         mPlayListAdapter = new PlayListAdapter(getContext(), mPlayListModels);
         mPlayListRecyclerView.setAdapter(mPlayListAdapter);
+        mPlayListAdapter.setOnItemClickListener(this);
         return view;
     }
 
@@ -86,7 +88,7 @@ public class PlayListFragment extends BaseFragment {
 
 
     private void requestServer(){
-        String url = "http://"+ API.HOST +"/playlist";
+        String url = "http://"+ API.HOST +"/playlist/list";
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>(){
 
             @Override
@@ -111,5 +113,13 @@ public class PlayListFragment extends BaseFragment {
             }
         });
         MusicApplication.getInstance().getHttpQueue().add(request);
+    }
+
+    @Override
+    public void onItemClick(View view, PlayListModel model) {
+        if(model != null){
+            Toast.makeText(getContext(), "click playlist id=" +model.getId(), Toast.LENGTH_SHORT).show();
+
+        }
     }
 }

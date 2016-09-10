@@ -1,7 +1,6 @@
 package com.chh.music.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,15 +9,12 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageLoader;
 import com.chh.music.R;
 import com.chh.music.model.PlayListModel;
 import com.chh.music.net.VolleyUtil;
 
 import java.util.List;
 
-import static com.chh.music.R.drawable.placeholder_disk_380;
 
 /**
  * Created by chenhao on 16/9/8.
@@ -26,10 +22,16 @@ import static com.chh.music.R.drawable.placeholder_disk_380;
 public class PlayListAdapter extends RecyclerView.Adapter {
     private List<PlayListModel> mDatas;
     private Context mContext;
+    private OnItemClickListener mOnItemClickListener;
 
     public PlayListAdapter(Context context, List<PlayListModel> models){
         this.mContext = context;
         this.mDatas = models;
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        this.mOnItemClickListener = listener;
+
     }
 
     @Override
@@ -40,8 +42,14 @@ public class PlayListAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
-        PlayListModel model = mDatas.get(position);
+        final PlayListModel model = mDatas.get(position);
         if(holder instanceof PlayListViewHolder) {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mOnItemClickListener.onItemClick(holder.itemView, model);
+                }
+            });
             ((PlayListViewHolder) holder).ivCover.setImageResource(R.drawable.placeholder_disk_380);
             VolleyUtil.loadImage(((PlayListViewHolder) holder).ivCover, model.getCoverImgUrl());
 
@@ -51,7 +59,6 @@ public class PlayListAdapter extends RecyclerView.Adapter {
                 ((PlayListViewHolder) holder).tvPlayCount.setText(""+ playCount);
             }else{
                 ((PlayListViewHolder) holder).tvPlayCount.setText(playCount/10000+ "万");
-
             }
             ((PlayListViewHolder) holder).tvUserName.setText(model.getCreator().getNickname());
         }
@@ -87,5 +94,9 @@ public class PlayListAdapter extends RecyclerView.Adapter {
             tvUserName = (TextView) itemView.findViewById(R.id.tv_user_name);
 
         }
+    }
+
+    public interface OnItemClickListener{
+        void onItemClick(View view, PlayListModel model);
     }
 }
