@@ -97,24 +97,24 @@ class NetEase:
             return []
 
     # 歌单（网友精选碟） hot||new http://music.163.com/#/discover/playlist/
-    def top_playlists(self, category='全部', order='hot', offset=0, limit=50):
+    def top_playlists(self, category='全部', order='hot', offset=0, limit=20):
         action = 'http://music.163.com/api/playlist/list?cat=' + category + '&order=' + order + '&offset=' + str(offset) + '&total=' + ('true' if offset else 'false') + '&limit=' + str(limit)
         try:
             data = self.httpRequest('GET', action)
             # return data['playlists']
             return data
         except:
-            response = {'code': '-1', 'playlist':None}
-            return json.dumps(response)
+            return {'code': '-1', 'playlists':None}
+            
 
     # 歌单详情
     def playlist_detail(self, playlist_id):
         action = 'http://music.163.com/api/playlist/detail?id=' + str(playlist_id)
         try:
             data = self.httpRequest('GET', action)
-            return data['result']['tracks']
+            return data
         except:
-            return []
+            return {'code': '-1', 'playlists':None}
 
     # 热门歌手 http://music.163.com/#/discover/artist/
     def top_artists(self, offset=0, limit=100):
