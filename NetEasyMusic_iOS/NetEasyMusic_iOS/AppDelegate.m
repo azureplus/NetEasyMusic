@@ -17,6 +17,43 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    UITabBarController *rootController = [[UITabBarController alloc]init];
+    self.window.rootViewController = rootController;
+    UIViewController *c1 = [[UIViewController alloc]init];
+    c1.view.backgroundColor = [UIColor grayColor];
+    c1.tabBarItem.image = [UIImage imageNamed:@"icn_discover"];
+    c1.tabBarItem.selectedImage = [UIImage imageNamed:@"icn_discover_prs"];
+    c1.tabBarItem.title = @"发现音乐";
+    
+    UIViewController *c2 = [[UIViewController alloc]init];
+    c2.view.backgroundColor = [UIColor grayColor];
+    
+    c2.tabBarItem.image = [UIImage imageNamed:@"icn_music"];
+    c2.tabBarItem.selectedImage = [UIImage imageNamed:@"icn_music_prs"];
+    c2.tabBarItem.title = @"我的音乐";
+    
+    
+    UIViewController *c3 = [[UIViewController alloc]init];
+    c3.view.backgroundColor = [UIColor grayColor];
+    c3.view.backgroundColor=[UIColor redColor];
+    c3.tabBarItem.image = [UIImage imageNamed:@"icn_friend"];
+    c3.tabBarItem.selectedImage = [UIImage imageNamed:@"icn_friend_prs"];
+    c3.tabBarItem.title = @"朋友";
+    
+    
+    UIViewController *c4 = [[UIViewController alloc]init];
+    c4.view.backgroundColor = [UIColor grayColor];
+    
+    c4.tabBarItem.image = [UIImage imageNamed:@"icn_account"];
+    c4.tabBarItem.selectedImage = [UIImage imageNamed:@"icn_account_prs"];
+    c4.tabBarItem.badgeValue=@"2";
+    c4.tabBarItem.title = @"账号";
+    
+    
+    rootController.viewControllers = @[c1, c2, c3, c4];
+    [rootController.tabBar setTintColor:[UIColor redColor]];
+    [self.window makeKeyAndVisible];
+    
     return YES;
 }
 
